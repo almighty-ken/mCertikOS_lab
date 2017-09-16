@@ -31,8 +31,8 @@ pmem_init(unsigned int mbi_addr)
    * Hint: Think of it as the highest address possible in the ranges of the memory map table,
    *       divided by the page size.
    */
-  // TODO
-
+  // Modified by Ken
+  nps = (0xFFFFFFFF / PAGESIZE);
 	set_nps(nps); // Setting the value computed above to NUM_PAGES.
 
   /**
@@ -59,7 +59,26 @@ pmem_init(unsigned int mbi_addr)
    *    That means there may be some gaps between the ranges.
    *    You should still set the permission of those pages in allocation table to 0.
    */
-  // TODO
+  // Modified by Ken
+  for(int i=0; i<nps; i++){
+    if(i<VM_USERLO_PI || i>=VM_USERHI_PI){
+      at_set_perm(i,1);
+    }else{
+      int usable = 0;
+      for(int j=0; j<get_size(); j++){
+        unsigned int mms = get_mms(j);
+        unsigned int mml = get_mml(j);
+        if(is_usable(j) && i*PAGESIZE >= mms && (i+1)*PAGESIZE-1 <= mms+mml){
+          at_set_perm(i,2);
+          usable = 1;
+          break;
+        }
+      }
+      if(!usable){
+        at_set_perm(i,0);
+      }
+    }
+  }
 }
 
 
