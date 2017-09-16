@@ -4,7 +4,7 @@
 static unsigned int NUM_PAGES;
 
 /**
- * Structure represeting infomatin for one physical page.
+ * Structure represeting infomation for one physical page.
  */
 struct ATStruct {
   /**
@@ -51,7 +51,10 @@ set_nps(unsigned int nps)
 unsigned int
 at_is_norm(unsigned int page_index)
 {
-  //TODO
+  // modified by Ken
+  if(AT[page_index].perm>1){
+    return 1;
+  }
   return 0;
 }
 
@@ -63,7 +66,9 @@ at_is_norm(unsigned int page_index)
 void
 at_set_perm(unsigned int page_index, unsigned int norm_val)
 {
-  //TODO
+  // modified by Ken
+  AT[page_index].perm = norm_val;
+  AT[page_index].allocated = 0;
 }
 
 /**
@@ -73,7 +78,10 @@ at_set_perm(unsigned int page_index, unsigned int norm_val)
 unsigned int
 at_is_allocated(unsigned int page_index)
 {
-  //TODO
+  // modified by Ken
+  if(AT[page_index].allocated){
+    return 1;
+  }
   return 0;
 }
 
@@ -84,5 +92,6 @@ at_is_allocated(unsigned int page_index)
 void
 at_set_allocated(unsigned int page_index, unsigned int allocated)
 {
-  //TODO
+  // modified by Ken
+  AT[page_index].allocated = allocated;
 }
