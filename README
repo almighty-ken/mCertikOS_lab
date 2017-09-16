@@ -39,3 +39,16 @@ Use command `make qemu` to launch the QEMU virtual machine, and start the CertiK
 
 To debug the kernel, use command `make qemu-gdb` to launch QEMU, and then `make gdb` to start gdb for current machine architecture in another terminal tab ('CMD + T').
 
+-------------------------------------------------------------------------------
+
+Question Section Response:
+
+Question Part A:
+1. When the processor switches from real mode to protected mode, which is right after the bootstrap GDT is loaded into the `switch_prot` section. The instruction `ljump $PROT_MODE_CSEG, $protcseg` in `boot1.asm:151` is what caused the switch to happen.
+
+2. The last instruction `jmp *%edx` executed in the bootloader is in `exec_kernel.S`, which jumps to the address stored in `%edx`. This will lead to `kern/init/entry.S` and the first instruction that will be executed is `cli` to clear the interrupt flags, then executes `cmpl	$MULTIBOOT_BOOTLOADER_MAGIC, %eax` to check for multiboot.
+
+3. The first instruction of the kernel is located it `/kern/init/entry.S`.
+
+4. In `boot1main.c: load_kernel()`, it reads the first section to get the ELF header from `dKernel`, which is from `bootable_lba`. Then from the header the boot loader gets the offset of the kernel, number of sections needed to load the entire kernel and so on. Then using `ph` and `eph` as boundaries, we can read the sections we need to load the entire kernel.
+
