@@ -41,6 +41,8 @@ To debug the kernel, use command `make qemu-gdb` to launch QEMU, and then `make 
 
 -------------------------------------------------------------------------------
 
+Collaborator: Vincent Huang
+
 Question Section Response:
 
 Question Part A:
