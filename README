@@ -42,6 +42,8 @@ To debug the kernel, use command `make qemu-gdb` to launch QEMU, and then `make 
 -------------------------------------------------------------------------------
 
 Collaborator: Vincent Huang
+We worked together to figure out how the bootloader works and went through the structure of memory management layers together. I wrote the code while he checked correctness for edge cases.
+
 
 Question Section Response:
 
